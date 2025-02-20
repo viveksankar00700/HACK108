@@ -1,0 +1,120 @@
+import uuid
+import time
+class complaint:
+     def __init__(self, customername,complaint_description, category):
+         self.complaint_id=str(uuid.uuid())       #unique complaint ID
+         self.customer_name = customer_name
+         self.compalint_description = complaint_description
+         self.category = category
+         self.status = "pending"
+         self.timestamp = time.strftime('%y-%m-%d %H:%M:%S')
+         self.resolution = None
+         self.feedback = None
+         def resolve(resolution_description):
+             self.status = "Resolved"
+             self.resolution = resolution_description
+             def give_feedback(feedback):
+                 self.feedback = feedback
+
+
+                 # noinspection Annotator
+                 class ComplaintManagementSystem:
+                     def __init__(self):
+                         self.complaints = []
+                         self.categories = ["Product Issue"]
+                         def register_comlaint(complaint_description):
+                             self.complaints.append(complaint_description)
+                             print(f"Complaint registered successfully with ID:{complaint_description.complaint_id}")
+                             return complaint_description
+                         def track_complaint(self,complaint_id):
+                             complaint = self.get_complaint_by_id(complaint_id)
+                             if complaint_description:
+                                 print(f"complaint ID:{complaint.complaint_id}")
+                                 print(f"customer: {complaint.customer_name}")
+  
+class Complaint:
+    def __init__(self, complaint_id, customer_name, complaint_description):
+        self.complaint_id = complaint_id
+        self.customer_name = customer_name
+        self.complaint_description = complaint_description
+        self.status = "Open"
+
+    def __str__(self):
+        return (f"Complaint ID: {self.complaint_id}\n"
+                f"Customer Name: {self.customer_name}\n"
+                f"Description: {self.complaint_description}\n"
+                f"Status: {self.status}")
+
+
+class ComplaintManagementSystem:
+    def __init__(self):
+        self.complaints = []
+        self.complaint_id_counter = 1
+
+    def add_complaint(self, customer_name, complaint_description):
+        complaint = Complaint(self.complaint_id_counter, customer_name, complaint_description)
+        self.complaints.append(complaint)
+        self.complaint_id_counter += 1
+        print("Complaint added successfully!")
+
+    def delete_complaint(self, complaint_id):
+        complaint_found = False
+        for complaint in self.complaints:
+            if complaint.complaint_id == complaint_id:
+                self.complaints.remove(complaint)
+                print("Complaint deleted successfully!")
+                complaint_found = True
+                break
+        if not complaint_found:
+            print(f"Complaint with ID {complaint_id} not found.")
+
+    def view_complaints(self):
+        if not self.complaints:
+            print("No complaints to show.")
+        else:
+            for complaint in self.complaints:
+                print("\n" + str(complaint))
+
+    def resolve_complaint(self, complaint_id):
+        for complaint in self.complaints:
+            if complaint.complaint_id == complaint_id:
+                complaint.status = "Resolved"
+                print(f"Complaint with ID {complaint_id} resolved.")
+                return
+        print(f"Complaint with ID {complaint_id} not found.")
+
+
+def main():
+    cms = ComplaintManagementSystem()
+
+    while True:
+        print("\nComplaint Management System")
+        print("1. Add Complaint")
+        print("2. Delete Complaint")
+        print("3. View Complaints")
+        print("4. Resolve Complaints")
+        print("5. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            customer_name = input("Enter customer name: ")
+            complaint_description = input("Enter complaint description: ")
+            cms.add_complaint(customer_name, complaint_description)
+        elif choice == "2":
+            complaint_id = int(input("Enter complaint ID to delete: "))
+            cms.delete_complaint(complaint_id)
+        elif choice == "3":
+            cms.view_complaints()
+        elif choice == "4":
+            complaint_id = int(input("Enter complaint ID to resolve: "))
+            cms.resolve_complaint(complaint_id)
+        elif choice == "5":
+            print("Exiting the system.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
